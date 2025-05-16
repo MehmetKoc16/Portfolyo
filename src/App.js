@@ -1,48 +1,125 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  // Scroll olayını dinle ve aktif bölümü belirle
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'skills', 'portfolio', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+      
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Viewport yüksekliğini al
-      const viewportHeight = window.innerHeight;
-      // Elementin yüksekliğini al
-      const elementHeight = element.getBoundingClientRect().height;
-      // Elementin üst pozisyonunu al
-      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-      // Ortalama için gerekli offset hesapla
-      const offset = elementTop - (viewportHeight - elementHeight) / 2;
+      // Navbar yüksekliğini hesapla
+      const navbar = document.querySelector('nav');
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
       
-      // Sayfayı kaydır
-      window.scrollTo({
-        top: offset,
-        behavior: 'smooth'
-      });
+      // Mobil cihazlarda doğrudan elementin en üstüne kaydır
+      if (window.innerWidth < 768) {
+        window.scrollTo({
+          top: element.offsetTop - navbarHeight +90, // Navbar yüksekliği + 10px ekstra boşluk
+          behavior: 'smooth'
+        });
+      } else {
+        // Desktop için mevcut merkezi kaydırma davranışını koru
+        const viewportHeight = window.innerHeight;
+        const elementHeight = element.getBoundingClientRect().height;
+        const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+        const offset = elementTop - (viewportHeight - elementHeight) / 2;
+        
+        window.scrollTo({
+          top: offset,
+          behavior: 'smooth'
+        });
+      }
+      
+      // Mobil menüyü kapat
+      setMobileMenuOpen(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-dark-darker text-light">
-      <nav className="sticky top-0 z-50 bg-dark shadow-md">
+      <nav className="sticky top-0 z-50 bg-dark/80 backdrop-blur-md shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div id="logo" className="font-bold">
             <img src="/Logo.png" alt="Logo" className="h-10 w-auto" />
           </div>
+          
+          {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8">
-            <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} className="hover:text-primary transition-colors">Ana Sayfa</a></li>
-            <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} className="hover:text-primary transition-colors">Ben Kimim?</a></li>
-            <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }} className="hover:text-primary transition-colors">Neler Yapabilirim?</a></li>
-            <li><a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} className="hover:text-primary transition-colors">Portfolyo</a></li>
-            <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} className="hover:text-primary transition-colors">İletişim</a></li>
+            <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} 
+                className={`hover:text-primary transition-colors ${activeSection === 'home' ? 'text-primary' : ''}`}>Ana Sayfa</a></li>
+            <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} 
+                className={`hover:text-primary transition-colors ${activeSection === 'about' ? 'text-primary' : ''}`}>Ben Kimim?</a></li>
+            <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }} 
+                className={`hover:text-primary transition-colors ${activeSection === 'skills' ? 'text-primary' : ''}`}>Neler Yapabilirim?</a></li>
+            <li><a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} 
+                className={`hover:text-primary transition-colors ${activeSection === 'portfolio' ? 'text-primary' : ''}`}>Portfolyo</a></li>
+            <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} 
+                className={`hover:text-primary transition-colors ${activeSection === 'contact' ? 'text-primary' : ''}`}>İletişim</a></li>
           </ul>
+          
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button className="text-light">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            <button 
+              className="text-light"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
+        
+        {/* Mobile Menu - Açılır kapanır menü */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-dark/90 backdrop-blur-md border-t border-gray-800 py-2">
+            <div className="container mx-auto px-4">
+              <ul className="flex flex-col space-y-2">
+                <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} 
+                    className={`block py-2 px-3 rounded ${activeSection === 'home' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Ana Sayfa</a></li>
+                <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} 
+                    className={`block py-2 px-3 rounded ${activeSection === 'about' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Ben Kimim?</a></li>
+                <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }} 
+                    className={`block py-2 px-3 rounded ${activeSection === 'skills' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Neler Yapabilirim?</a></li>
+                <li><a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} 
+                    className={`block py-2 px-3 rounded ${activeSection === 'portfolio' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Portfolyo</a></li>
+                <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} 
+                    className={`block py-2 px-3 rounded ${activeSection === 'contact' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>İletişim</a></li>
+              </ul>
+            </div>
+          </div>
+        )}
       </nav>
 
       <main className="container mx-auto px-4 py-8">
@@ -54,13 +131,50 @@ function App() {
 
         {/* Ben Kimim Bölümü */}
         <section id="about" className="py-20">
-          <div className="max-w-6xl mx-auto bg-dark rounded-lg shadow-lg p-8">
-            <h2 className="text-3xl font-bold text-center mb-12 relative after:content-[''] after:absolute after:w-20 after:h-1 after:bg-primary after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2">Ben Kimim?</h2>
-            <div className="flex flex-col md:flex-row gap-12">
+          <div className="max-w-6xl mx-auto bg-dark rounded-lg shadow-lg p-6 md:p-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 relative after:content-[''] after:absolute after:w-20 after:h-1 after:bg-primary after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2">Ben Kimim?</h2>
+            
+            {/* Mobil görünüm için düzenlenmiş içerik */}
+            <div className="md:hidden">
+              <div className="mb-8 text-center">
+                <img src="https://via.placeholder.com/300x300" alt="Profil" className="rounded-lg shadow-xl w-3/4 mx-auto mb-6" />
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="text-xl font-semibold text-primary text-center">Merhaba, Ben [Adınız]</h3>
+                <p className="text-sm">
+                  [X] yıllık deneyime sahip bir [mesleğiniz/uzmanlık alanınız]. Modern web teknolojileri konusunda tutkulu ve sürekli kendini geliştiren biriyim.
+                </p>
+                <p className="text-sm">
+                  Kullanıcı odaklı, performanslı ve estetik çözümler üretmeyi seviyorum. Yazılım geliştirme süreçlerinde problem çözme yeteneğim ve analitik düşünce yapım ile öne çıkıyorum.
+                </p>
+                <p className="text-sm">
+                  Her projede en güncel teknolojileri kullanarak, sürdürülebilir ve ölçeklenebilir çözümler sunmayı hedefliyorum.
+                </p>
+              </div>
+              
+              <div className="mt-8 space-y-6">
+                <div className="bg-dark-darker p-4 rounded-lg shadow-md">
+                  <div className="text-3xl font-bold text-primary mb-1">5+</div>
+                  <div className="text-sm font-medium">Yıllık Deneyim</div>
+                </div>
+                <div className="bg-dark-darker p-4 rounded-lg shadow-md">
+                  <div className="text-3xl font-bold text-primary mb-1">50+</div>
+                  <div className="text-sm font-medium">Tamamlanan Proje</div>
+                </div>
+                <div className="bg-dark-darker p-4 rounded-lg shadow-md">
+                  <div className="text-3xl font-bold text-primary mb-1">20+</div>
+                  <div className="text-sm font-medium">Mutlu Müşteri</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Desktop görünüm - mevcut hali koru */}
+            <div className="hidden md:flex md:flex-row gap-12">
               <div className="md:w-1/2">
                 <p className="mb-6">Merhaba! Ben [Adınız], [X] yıllık deneyime sahip bir [mesleğiniz/uzmanlık alanınız]. Modern web teknolojileri konusunda tutkulu ve sürekli kendini geliştiren biriyim. Kullanıcı odaklı, performanslı ve estetik çözümler üretmeyi seviyorum.</p>
                 <p className="mb-6">Yazılım geliştirme süreçlerinde problem çözme yeteneğim ve analitik düşünce yapım ile öne çıkıyorum. Her projede en güncel teknolojileri kullanarak, sürdürülebilir ve ölçeklenebilir çözümler sunmayı hedefliyorum.</p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                <div className="grid grid-cols-3 gap-6 mt-10">
                   <div className="bg-dark-darker p-6 rounded-lg shadow-md transform hover:-translate-y-2 transition-transform">
                     <div className="text-3xl font-bold text-primary mb-2">5+</div>
                     <div className="text-sm font-medium">Yıllık Deneyim</div>
@@ -299,3 +413,10 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
