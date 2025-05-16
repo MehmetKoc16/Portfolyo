@@ -3,6 +3,46 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  
+  // Değiştirilecek metin dizisi
+  const textArray = ["Mobil Yazılım Geliştirici", "Web Geliştirici", "Bilgisayar Mühendisliği Öğrencisi"];
+  const typingDelay = 150;
+  const erasingDelay = 100;
+  const newTextDelay = 2000; // Delay between current and next text
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const i = loopNum % textArray.length;
+      const fullText = textArray[i];
+
+      setDisplayText(isDeleting 
+        ? fullText.substring(0, currentIndex - 1) 
+        : fullText.substring(0, currentIndex + 1)
+      );
+
+      setCurrentIndex(isDeleting ? currentIndex - 1 : currentIndex + 1);
+
+      if (!isDeleting && currentIndex === fullText.length) {
+        // Yazma tamamlandı, silme başlasın
+        setTimeout(() => setIsDeleting(true), newTextDelay);
+      } else if (isDeleting && currentIndex === 0) {
+        // Silme tamamlandı, sonraki kelimeye geç
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+
+    const timer = setTimeout(
+      handleTyping, 
+      isDeleting ? erasingDelay : typingDelay
+    );
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, isDeleting, loopNum, displayText]);
 
   // Scroll olayını dinle ve aktif bölümü belirle
   useEffect(() => {
@@ -76,7 +116,7 @@ function App() {
             <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }} 
                 className={`hover:text-primary transition-colors ${activeSection === 'skills' ? 'text-primary' : ''}`}>Neler Yapabilirim?</a></li>
             <li><a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} 
-                className={`hover:text-primary transition-colors ${activeSection === 'portfolio' ? 'text-primary' : ''}`}>Portfolyo</a></li>
+                className={`hover:text-primary transition-colors ${activeSection === 'portfolio' ? 'text-primary' : ''}`}>Projelerim</a></li>
             <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} 
                 className={`hover:text-primary transition-colors ${activeSection === 'contact' ? 'text-primary' : ''}`}>İletişim</a></li>
           </ul>
@@ -125,8 +165,27 @@ function App() {
       <main className="container mx-auto px-4 py-8">
         {/* Ana Sayfa Bölümü */}
         <section id="home" className="py-20 flex flex-col items-center justify-center min-h-[80vh]">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center">Hoş Geldiniz</h1>
-          <p className="text-xl max-w-3xl mx-auto text-center">Modern web teknolojileri ile yaratıcı çözümler üreten bir yazılım geliştiricisinin portfolyo sayfasına hoş geldiniz.</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center">Merhaba, Ben Mehmet Koç</h1>
+          <h3 className="text-2xl md:text-3xl mb-6 text-center">
+            <span className="text-primary">{displayText}</span>
+            <span className="animate-blink">|</span>
+          </h3>
+          <p className="text-xl max-w-3xl mx-auto text-center mb-8"></p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 mt-2">
+            <button 
+              onClick={() => scrollToSection('portfolio')}
+              className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            >
+              Projelerimi Gör
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            >
+              İletişim
+            </button>
+          </div>
         </section>
 
         {/* Ben Kimim Bölümü */}
@@ -413,6 +472,13 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
 
 
 
