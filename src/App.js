@@ -1,4 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+
+// Yıldızlı arka plan bileşeni
+const StarryBackground = () => {
+  const [stars, setStars] = useState([]);
+  
+  useEffect(() => {
+    const generateStars = () => {
+      const starCount = 150; // Yıldız sayısı
+      const newStars = [];
+      
+      for (let i = 0; i < starCount; i++) {
+        newStars.push({
+          id: i,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          size: `${Math.random() * 2 + 1}px`,
+          duration: `${Math.random() * 5 + 3}s`,
+          delay: `${Math.random() * 5}s`
+        });
+      }
+      
+      setStars(newStars);
+    };
+    
+    generateStars();
+  }, []);
+  
+  return (
+    <div className="stars">
+      {stars.map(star => (
+        <div
+          key={star.id}
+          className="star"
+          style={{
+            left: star.left,
+            top: star.top,
+            width: star.size,
+            height: star.size,
+            '--duration': star.duration,
+            '--delay': star.delay
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -9,7 +55,7 @@ function App() {
   const [loopNum, setLoopNum] = useState(0);
   
   // Değiştirilecek metin dizisi
-  const textArray = ["Mobil Yazılım Geliştirici", "Web Geliştirici", "Bilgisayar Mühendisliği Öğrencisi"];
+  const textArray = useMemo(() => ["Mobil Yazılım Geliştirici", "Web Geliştirici", "Bilgisayar Mühendisliği Öğrencisi"], []);
   const typingDelay = 150;
   const erasingDelay = 100;
   const newTextDelay = 2000; // Delay between current and next text
@@ -42,7 +88,7 @@ function App() {
     );
 
     return () => clearTimeout(timer);
-  }, [currentIndex, isDeleting, loopNum, displayText]);
+  }, [currentIndex, isDeleting, loopNum, textArray, erasingDelay, typingDelay, newTextDelay]);
 
   // Scroll olayını dinle ve aktif bölümü belirle
   useEffect(() => {
@@ -101,6 +147,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-dark-darker text-light">
+      <StarryBackground />
       <nav className="sticky top-0 z-50 bg-dark/80 backdrop-blur-md shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div id="logo" className="font-bold">
@@ -112,7 +159,7 @@ function App() {
             <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} 
                 className={`hover:text-primary transition-colors ${activeSection === 'home' ? 'text-primary' : ''}`}>Ana Sayfa</a></li>
             <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} 
-                className={`hover:text-primary transition-colors ${activeSection === 'about' ? 'text-primary' : ''}`}>Ben Kimim?</a></li>
+                className={`hover:text-primary transition-colors ${activeSection === 'about' ? 'text-primary' : ''}`}>Hakkımda</a></li>
             <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }} 
                 className={`hover:text-primary transition-colors ${activeSection === 'skills' ? 'text-primary' : ''}`}>Neler Yapabilirim?</a></li>
             <li><a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} 
@@ -149,7 +196,7 @@ function App() {
                 <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} 
                     className={`block py-2 px-3 rounded ${activeSection === 'home' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Ana Sayfa</a></li>
                 <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} 
-                    className={`block py-2 px-3 rounded ${activeSection === 'about' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Ben Kimim?</a></li>
+                    className={`block py-2 px-3 rounded ${activeSection === 'about' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Hakkımda</a></li>
                 <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }} 
                     className={`block py-2 px-3 rounded ${activeSection === 'skills' ? 'bg-primary/10 text-primary' : 'hover:bg-dark-darker'}`}>Neler Yapabilirim?</a></li>
                 <li><a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} 
@@ -188,69 +235,65 @@ function App() {
           </div>
         </section>
 
-        {/* Ben Kimim Bölümü */}
+        {/* Hakkımda Bölümü */}
         <section id="about" className="py-20">
-          <div className="max-w-6xl mx-auto bg-dark rounded-lg shadow-lg p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 relative after:content-[''] after:absolute after:w-20 after:h-1 after:bg-primary after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2">Ben Kimim?</h2>
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12 relative after:content-[''] after:absolute after:w-20 after:h-1 after:bg-primary after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2">Hakkımda</h2>
             
-            {/* Mobil görünüm için düzenlenmiş içerik */}
-            <div className="md:hidden">
-              <div className="mb-8 text-center">
-                <img src="https://via.placeholder.com/300x300" alt="Profil" className="rounded-lg shadow-xl w-3/4 mx-auto mb-6" />
-              </div>
-              
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-primary text-center">Merhaba, Ben [Adınız]</h3>
-                <p className="text-sm">
-                  [X] yıllık deneyime sahip bir [mesleğiniz/uzmanlık alanınız]. Modern web teknolojileri konusunda tutkulu ve sürekli kendini geliştiren biriyim.
-                </p>
-                <p className="text-sm">
-                  Kullanıcı odaklı, performanslı ve estetik çözümler üretmeyi seviyorum. Yazılım geliştirme süreçlerinde problem çözme yeteneğim ve analitik düşünce yapım ile öne çıkıyorum.
-                </p>
-                <p className="text-sm">
-                  Her projede en güncel teknolojileri kullanarak, sürdürülebilir ve ölçeklenebilir çözümler sunmayı hedefliyorum.
-                </p>
-              </div>
-              
-              <div className="mt-8 space-y-6">
-                <div className="bg-dark-darker p-4 rounded-lg shadow-md">
-                  <div className="text-3xl font-bold text-primary mb-1">5+</div>
-                  <div className="text-sm font-medium">Yıllık Deneyim</div>
+            <div className="bg-dark rounded-lg shadow-lg p-6 md:p-8">
+              <div className="flex flex-col md:flex-row gap-8">
+                {/* Sol taraf - Kişisel tanıtım */}
+                <div className="md:w-3/5">
+                  <h3 className="text-2xl font-bold mb-4">
+                    Ben <span className="text-primary">Mehmet Koç</span>
+                  </h3>
+                  
+                  <p className="text-gray-300 mb-4">
+                    Bilgisayar Mühendisliği 2. sınıf öğrencisiyim ve yazılım geliştirme tutkusu ile yolculuğuma devam ediyorum. Web, mobil uygulamalar ve oyun geliştirme alanlarında aktif olarak projeler üretiyorum. Özellikle kullanıcı odaklı, işlevsel ve estetik arayüzler oluşturmayı seviyorum.
+                  </p>
+                  
+                  <p className="text-gray-300 mb-6">
+                    Şu anda kendi portfolyo sayfamı geliştiriyor ve “Dragon’s” adını verdiğim oyun projesi üzerinde çalışıyorum. Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
+Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi geliştirmeye devam ediyorum. </p>
                 </div>
-                <div className="bg-dark-darker p-4 rounded-lg shadow-md">
-                  <div className="text-3xl font-bold text-primary mb-1">50+</div>
-                  <div className="text-sm font-medium">Tamamlanan Proje</div>
-                </div>
-                <div className="bg-dark-darker p-4 rounded-lg shadow-md">
-                  <div className="text-3xl font-bold text-primary mb-1">20+</div>
-                  <div className="text-sm font-medium">Mutlu Müşteri</div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Desktop görünüm - mevcut hali koru */}
-            <div className="hidden md:flex md:flex-row gap-12">
-              <div className="md:w-1/2">
-                <p className="mb-6">Merhaba! Ben [Adınız], [X] yıllık deneyime sahip bir [mesleğiniz/uzmanlık alanınız]. Modern web teknolojileri konusunda tutkulu ve sürekli kendini geliştiren biriyim. Kullanıcı odaklı, performanslı ve estetik çözümler üretmeyi seviyorum.</p>
-                <p className="mb-6">Yazılım geliştirme süreçlerinde problem çözme yeteneğim ve analitik düşünce yapım ile öne çıkıyorum. Her projede en güncel teknolojileri kullanarak, sürdürülebilir ve ölçeklenebilir çözümler sunmayı hedefliyorum.</p>
-                <div className="grid grid-cols-3 gap-6 mt-10">
-                  <div className="bg-dark-darker p-6 rounded-lg shadow-md transform hover:-translate-y-2 transition-transform">
-                    <div className="text-3xl font-bold text-primary mb-2">5+</div>
-                    <div className="text-sm font-medium">Yıllık Deneyim</div>
+                
+                {/* Sağ taraf - Kişisel bilgiler */}
+                <div className="md:w-2/5 bg-dark-darker rounded-lg p-6 mt-8 md:mt-0">
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-gray-400 mb-1">İsim:</h4>
+                      <p className="font-medium">Mehmet Koç</p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-gray-400 mb-1">Email:</h4>
+                      <p className="font-medium">mehmetkoc2050@gmail.com</p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-gray-400 mb-1">Yaş:</h4>
+                      <p className="font-medium">20</p>
+                    </div>
+                    
+                    <div>
+                      <h4 className="text-gray-400 mb-1">Konum:</h4>
+                      <p className="font-medium">Balıkesir, Türkiye</p>
+                    </div>
+                    
+                    <div className="pt-4">
+                      <a 
+                        href="/Mehmet_KOÇ_CV.pdf" 
+                        download 
+                        className="inline-block bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+                      >
+                        <span className="flex items-center justify-center">
+                          <i className="fas fa-download mr-2"></i>
+                          CV İndir
+                        </span>
+                      </a>
+                    </div>
                   </div>
-                  <div className="bg-dark-darker p-6 rounded-lg shadow-md transform hover:-translate-y-2 transition-transform">
-                    <div className="text-3xl font-bold text-primary mb-2">50+</div>
-                    <div className="text-sm font-medium">Tamamlanan Proje</div>
-                  </div>
-                  <div className="bg-dark-darker p-6 rounded-lg shadow-md transform hover:-translate-y-2 transition-transform">
-                    <div className="text-3xl font-bold text-primary mb-2">20+</div>
-                    <div className="text-sm font-medium">Mutlu Müşteri</div>
-                  </div>
                 </div>
-              </div>
-              <div className="md:w-1/2 relative">
-                <div className="absolute inset-4 border-2 border-primary rounded-lg"></div>
-                <img src="https://via.placeholder.com/600x700" alt="Profil" className="relative z-10 rounded-lg shadow-xl w-full" />
               </div>
             </div>
           </div>
@@ -472,6 +515,19 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
