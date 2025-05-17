@@ -253,7 +253,7 @@ function App() {
                   </p>
                   
                   <p className="text-gray-300 mb-6">
-                    Şu anda kendi portfolyo sayfamı geliştiriyor ve “Dragon’s” adını verdiğim oyun projesi üzerinde çalışıyorum. Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
+                    Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
 Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi geliştirmeye devam ediyorum. </p>
                 </div>
                 
@@ -316,35 +316,14 @@ Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi g
                   <i className="fas fa-mobile-alt"></i>
                 </div>
                 <h3 className="text-xl font-bold mb-3">Mobil Uygulama</h3>
-                <p>React Native kullanarak iOS ve Android platformları için native hissiyatı veren mobil uygulamalar geliştiriyorum.</p>
+                <p>Flutter ve Dart kullanarak iOS ve Android platformları için hızlı, güzel ve native performanslı cross-platform mobil uygulamalar geliştiriyorum.</p>
               </div>
               <div className="bg-dark-darker p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <div className="text-primary text-4xl mb-4">
-                  <i className="fas fa-server"></i>
+                  <i className="fas fa-gamepad"></i>
                 </div>
-                <h3 className="text-xl font-bold mb-3">Backend Geliştirme</h3>
-                <p>Node.js, Express ve MongoDB kullanarak güvenli, ölçeklenebilir ve performanslı API'lar ve backend sistemleri geliştiriyorum.</p>
-              </div>
-              <div className="bg-dark-darker p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-primary text-4xl mb-4">
-                  <i className="fas fa-paint-brush"></i>
-                </div>
-                <h3 className="text-xl font-bold mb-3">UI/UX Tasarım</h3>
-                <p>Kullanıcı deneyimini ön planda tutan, estetik ve işlevsel arayüzler tasarlıyorum. Figma ve Adobe XD araçlarını etkin şekilde kullanıyorum.</p>
-              </div>
-              <div className="bg-dark-darker p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-primary text-4xl mb-4">
-                  <i className="fas fa-search"></i>
-                </div>
-                <h3 className="text-xl font-bold mb-3">SEO Optimizasyonu</h3>
-                <p>Web sitelerinin arama motorlarında daha iyi sıralanması için SEO optimizasyonu yapıyorum. Teknik SEO, içerik stratejisi ve performans iyileştirmeleri konularında uzmanım.</p>
-              </div>
-              <div className="bg-dark-darker p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                <div className="text-primary text-4xl mb-4">
-                  <i className="fas fa-cogs"></i>
-                </div>
-                <h3 className="text-xl font-bold mb-3">DevOps</h3>
-                <p>CI/CD pipeline'ları kurarak, otomatik test ve deployment süreçleri oluşturuyorum. Docker, AWS ve Netlify gibi teknolojileri kullanarak projeleri yayına alıyorum.</p>
+                <h3 className="text-xl font-bold mb-3">Oyun Geliştirme</h3>
+                <p>Unity ve C# kullanarak 2D/3D oyunlar geliştiriyorum. Oyun mekaniği tasarımı, karakter kontrolü ve kullanıcı deneyimi odaklı interaktif oyunlar oluşturuyorum.</p>
               </div>
             </div>
           </div>
@@ -515,6 +494,8 @@ Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi g
 }
 
 export default App;
+
+
 
 
 
