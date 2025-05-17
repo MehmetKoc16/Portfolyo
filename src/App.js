@@ -44,11 +44,30 @@ function App() {
       const navbar = document.querySelector('header');
       const navbarHeight = navbar ? navbar.offsetHeight : 0;
       
-      // Sayfayı kaydır
-      window.scrollTo({
-        top: element.offsetTop - navbarHeight,
-        behavior: 'smooth'
-      });
+      // Sayfayı kaydır - Hakkımda bölümü için özel ayarlama
+      if (sectionId === 'about') {
+        const windowHeight = window.innerHeight;
+        const elementHeight = element.offsetHeight;
+        // Eğer bölüm yüksekliği pencere yüksekliğinden küçükse ortala
+        if (elementHeight < windowHeight) {
+          window.scrollTo({
+            top: element.offsetTop - ((windowHeight - elementHeight) / 2),
+            behavior: 'smooth'
+          });
+        } else {
+          // Normal kaydırma
+          window.scrollTo({
+            top: element.offsetTop - navbarHeight,
+            behavior: 'smooth'
+          });
+        }
+      } else {
+        // Diğer bölümler için normal kaydırma
+        window.scrollTo({
+          top: element.offsetTop - navbarHeight,
+          behavior: 'smooth'
+        });
+      }
       
       // Mobil menüyü kapat
       setMobileMenuOpen(false);
@@ -80,6 +99,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
