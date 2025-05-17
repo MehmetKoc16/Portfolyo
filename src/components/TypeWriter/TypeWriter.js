@@ -43,11 +43,12 @@ const TypeWriter = () => {
   }, [currentIndex, isDeleting, loopNum, textArray, erasingDelay, typingDelay, newTextDelay]);
 
   return (
-    <div className="typewriter">
+    <span className="typewriter">
       <span className="text-primary">{displayText}</span>
       <span className="animate-blink">|</span>
-    </div>
+    </span>
   );
 };
 
 export default TypeWriter;
+

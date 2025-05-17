@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const Footer = () => {
@@ -15,7 +16,7 @@ const Footer = () => {
             <i className="fab fa-linkedin text-xl"></i>
           </a>
         </div>
-        <p>&copy; {new Date().getFullYear()} Portfolyo | Tüm Hakları Saklıdır</p>
+        <p>&copy; {new Date().getFullYear()} Mehmet Koç | Tüm Hakları Saklıdır</p>
       </div>
     </footer>
   );

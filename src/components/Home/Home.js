@@ -53,10 +53,3 @@ const Home = ({ scrollToSection }) => {
 };
 
 export default Home;
-
-
-
-
-
-
-

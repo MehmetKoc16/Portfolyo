@@ -26,7 +26,7 @@ const StarryBackground = () => {
   }, []);
   
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden">
+    <div className="fixed inset-0 overflow-hidden" style={{ zIndex: -1 }}>
       {stars.map(star => (
         <div
           key={star.id}
