@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const About = () => {
   return (
     <section id="about" className="py-20 bg-dark-darker">
@@ -22,7 +21,6 @@ const About = () => {
               Şu anda kendi portfolyo sayfamı geliştiriyor ve "Dragon's" adını verdiğim oyun projesi üzerinde çalışıyorum. Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
               Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi geliştirmeye devam ediyorum.
             </p>
-            
           </div>
 
           {/* Sağ taraf - Kişisel bilgiler */}
@@ -47,6 +45,26 @@ const About = () => {
                 <h4 className="text-gray-400 mb-1">Konum:</h4>
                 <p className="font-medium">Balıkesir, Türkiye</p>
               </div>
+              
+              {/* CV İndirme Butonu */}
+              <div className="mt-6">
+                <button 
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/Mehmet_KOC_CV.pdf';
+                    link.download = 'Mehmet_KOC_CV.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                  className="inline-block bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)] w-full"
+                >
+                  <span className="flex items-center justify-center">
+                    <i className="fas fa-download mr-2"></i>
+                    CV İndir
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -56,3 +74,4 @@ const About = () => {
 };
 
 export default About;
+
