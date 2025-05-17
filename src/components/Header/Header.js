@@ -5,9 +5,9 @@ const Header = ({ activeSection, scrollToSection, mobileMenuOpen, setMobileMenuO
     <header className="fixed top-0 left-0 w-full bg-dark/80 backdrop-blur-md z-50 shadow-md">
       <div className="container mx-auto px-4">
         <nav className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold text-white">
-            <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-              Mehmet <span className="text-primary">KOÇ</span>
+          <div className="text-2xl font-bold text-white flex items-center">
+            <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }} className="flex items-center">
+              <img src="/Logo.png" alt="Logo" className="h-8 w-auto mr-2" />
             </a>
           </div>
           
@@ -56,3 +56,4 @@ const Header = ({ activeSection, scrollToSection, mobileMenuOpen, setMobileMenuO
 };
 
 export default Header;
+

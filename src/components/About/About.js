@@ -1,61 +1,52 @@
 import React from 'react';
 
+
 const About = () => {
   return (
-    <section id="about" className="py-20">
-      <div className="max-w-6xl mx-auto bg-dark rounded-lg shadow-lg p-8">
+    <section id="about" className="py-20 bg-dark-darker">
+      <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12 relative after:content-[''] after:absolute after:w-20 after:h-1 after:bg-primary after:bottom-[-10px] after:left-1/2 after:transform after:-translate-x-1/2">Hakkımda</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="relative">
-              <div className="w-full h-[400px] bg-dark-darker rounded-lg overflow-hidden">
-                <img src="/images/profile.jpg" alt="Mehmet KOÇ" className="w-full h-full object-cover" />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">5+</div>
-                  <div className="text-sm text-white">Yıl Deneyim</div>
-                </div>
-              </div>
-            </div>
+        
+        <div className="flex flex-col md:flex-row items-start gap-12 px-12 md:px-24">
+          {/* Sol taraf - Başlık ve açıklama */}
+          <div className="w-full md:w-2/3">
+            <h1 className="text-4xl font-bold mb-6">
+              Ben <span className="text-primary">Mehmet Koç</span>
+            </h1>
+            <p className="text-gray-300 mb-6">
+              Bilgisayar Mühendisliği 2. sınıf öğrencisiyim ve yazılım geliştirme tutkusu ile yolculuğuma devam ediyorum. 
+              Web, mobil uygulamalar ve oyun geliştirme alanlarında aktif olarak projeler üretiyorum. Özellikle kullanıcı odaklı, 
+              işlevsel ve estetik arayüzler oluşturmayı seviyorum.
+            </p>
+            <p className="text-gray-300 mb-6">
+              Şu anda kendi portfolyo sayfamı geliştiriyor ve "Dragon's" adını verdiğim oyun projesi üzerinde çalışıyorum. Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
+              Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi geliştirmeye devam ediyorum.
+            </p>
+            
           </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Web & Mobil Geliştirici</h3>
-            <p className="mb-6">
-              Merhaba! Ben Mehmet KOÇ, 5+ yıllık deneyime sahip bir yazılım geliştiricisiyim. Web geliştirme, mobil uygulama geliştirme ve oyun geliştirme alanlarında uzmanlaşmış durumdayım.
-            </p>
-            <p className="mb-6">
-              React, Flutter ve Unity teknolojilerini kullanarak kullanıcı dostu, performanslı ve modern uygulamalar geliştiriyorum. Her projede en iyi kullanıcı deneyimini sunmak için çalışıyorum.
-            </p>
-            <div className="grid grid-cols-2 gap-4 mb-6">
+
+          {/* Sağ taraf - Kişisel bilgiler */}
+          <div className="w-full md:w-1/3 bg-dark-darker rounded-lg p-6 mt-8 md:mt-0">
+            <div className="space-y-4">
               <div>
-                <h4 className="font-bold mb-2">İsim:</h4>
-                <p>Mehmet KOÇ</p>
+                <h4 className="text-gray-400 mb-1">İsim:</h4>
+                <p className="font-medium">Mehmet Koç</p>
               </div>
+              
               <div>
-                <h4 className="font-bold mb-2">Email:</h4>
-                <p>info@example.com</p>
+                <h4 className="text-gray-400 mb-1">Email:</h4>
+                <p className="font-medium">mehmetkoc2050@gmail.com</p>
               </div>
+              
               <div>
-                <h4 className="font-bold mb-2">Konum:</h4>
-                <p>İstanbul, Türkiye</p>
+                <h4 className="text-gray-400 mb-1">Yaş:</h4>
+                <p className="font-medium">20</p>
               </div>
+              
               <div>
-                <h4 className="font-bold mb-2">Freelance:</h4>
-                <p>Müsait</p>
+                <h4 className="text-gray-400 mb-1">Konum:</h4>
+                <p className="font-medium">Balıkesir, Türkiye</p>
               </div>
-            </div>
-            <div className="pt-4">
-              <a 
-                href="/Mehmet_KOÇ_CV.pdf" 
-                download 
-                className="inline-block bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-              >
-                <span className="flex items-center justify-center">
-                  <i className="fas fa-download mr-2"></i>
-                  CV İndir
-                </span>
-              </a>
             </div>
           </div>
         </div>
@@ -65,3 +56,18 @@ const About = () => {
 };
 
 export default About;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

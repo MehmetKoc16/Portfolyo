@@ -14,29 +14,49 @@ const Home = ({ scrollToSection }) => {
         <div className="flex flex-wrap justify-center gap-4">
           <button 
             onClick={() => scrollToSection('contact')} 
-            className="px-8 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/80 transition-all transform hover:translate-y-[-2px] hover:shadow-lg"
+            className="inline-block bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
           >
-            İletişime Geç
+            <span className="flex items-center justify-center">
+              <i className="fas fa-envelope mr-2"></i>
+              İletişime Geç
+            </span>
           </button>
-          <a 
-            href="/Mehmet_KOÇ_CV.pdf" 
-            download 
+          <button 
+            onClick={() => scrollToSection('portfolio')} 
+            className="inline-block bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+          >
+            <span className="flex items-center justify-center">
+              <i className="fas fa-project-diagram mr-2"></i>
+              Projelerimi Gör
+            </span>
+          </button>
+          <button 
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = '/Mehmet_KOC_CV.pdf';
+              link.download = 'Mehmet_KOC_CV.pdf';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
             className="inline-block bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full transition-all duration-300 hover:bg-white hover:text-black hover:shadow-[0_0_15px_rgba(255,255,255,0.5)]"
           >
             <span className="flex items-center justify-center">
               <i className="fas fa-download mr-2"></i>
               CV İndir
             </span>
-          </a>
+          </button>
         </div>
-      </div>
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <button onClick={() => scrollToSection('about')} className="text-white opacity-70 hover:opacity-100 transition-opacity">
-          <i className="fas fa-chevron-down text-2xl"></i>
-        </button>
       </div>
     </section>
   );
 };
 
 export default Home;
+
+
+
+
+
+
+
