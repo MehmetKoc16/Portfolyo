@@ -47,7 +47,7 @@ const Portfolio = () => {
       title: "Todo Uygulaması",
       description: "React ve Firebase kullanarak geliştirilen, görevlerinizi organize etmenizi sağlayan web tabanlı todo uygulaması.",
       image: "/image/todo_app.png",
-      tags: ["React", "Firebase", "JavaScript"],
+      tags: ["Flutter", "Dart", "API"],
       demoLink: "https://example.com",
       githubLink: "https://github.com/MehmetKoc16/todo_app"
     }
