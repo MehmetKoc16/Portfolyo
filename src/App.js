@@ -37,40 +37,53 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId) => {
+  // Mobil cihaz kontrolü
+  const isMobile = window.innerWidth < 768;
+
+  // Masaüstü için scrollToSection
+  const scrollToSectionDesktop = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       // Navbar yüksekliğini hesapla
       const navbar = document.querySelector('header');
       const navbarHeight = navbar ? navbar.offsetHeight : 0;
       
-      // Sayfayı kaydır - Hakkımda bölümü için özel ayarlama
-      if (sectionId === 'about') {
-        const windowHeight = window.innerHeight;
-        const elementHeight = element.offsetHeight;
-        // Eğer bölüm yüksekliği pencere yüksekliğinden küçükse ortala
-        if (elementHeight < windowHeight) {
-          window.scrollTo({
-            top: element.offsetTop - ((windowHeight - elementHeight) / 2),
-            behavior: 'smooth'
-          });
-        } else {
-          // Normal kaydırma
-          window.scrollTo({
-            top: element.offsetTop - navbarHeight,
-            behavior: 'smooth'
-          });
-        }
-      } else {
-        // Diğer bölümler için normal kaydırma
-        window.scrollTo({
-          top: element.offsetTop - navbarHeight,
-          behavior: 'smooth'
-        });
-      }
+      // Sayfayı kaydır
+      window.scrollTo({
+        top: element.offsetTop - navbarHeight - 20, // Ekstra 20px boşluk
+        behavior: 'smooth'
+      });
       
       // Mobil menüyü kapat
       setMobileMenuOpen(false);
+    }
+  };
+
+  // Mobil için scrollToSection
+  const scrollToSectionMobile = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Navbar yüksekliğini hesapla
+      const navbar = document.querySelector('header');
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
+      
+      // Sayfayı kaydır - mobil için başlığı daha yukarıda göster
+      window.scrollTo({
+        top: element.offsetTop - navbarHeight + 330, // Mobil için daha az boşluk
+        behavior: 'smooth'
+      });
+      
+      // Mobil menüyü kapat
+      setMobileMenuOpen(false);
+    }
+  };
+
+  // Cihaz tipine göre doğru fonksiyonu seç
+  const scrollToSection = (sectionId) => {
+    if (isMobile) {
+      scrollToSectionMobile(sectionId);
+    } else {
+      scrollToSectionDesktop(sectionId);
     }
   };
 
@@ -99,3 +112,5 @@ function App() {
 }
 
 export default App;
+
+
