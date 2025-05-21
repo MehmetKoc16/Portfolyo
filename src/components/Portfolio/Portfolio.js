@@ -53,7 +53,6 @@ const Portfolio = () => {
       description: "Flutter ve Dart kullanarak geliştirilen, gerçek zamanlı hava durumu verilerini API ile çeken mobil uygulama.",
       image: "/image/weather_app.png",
       tags: ["Flutter", "Dart", "API"],
-      demoLink: "https://example.com",
       githubLink: "https://github.com/MehmetKoc16/WeatherApp"
     },
     {
@@ -62,7 +61,6 @@ const Portfolio = () => {
       description: "PyQt5 ve QtDesigner kullanarak geliştirilen, restoran işletmelerinin sipariş, stok ve müşteri yönetimini sağlayan masaüstü uygulaması.",
       images: restaurantImages,
       tags: ["Python", "PyQt5", "QtDesigner"],
-      demoLink: "https://example.com",
       githubLink: "https://github.com/MehmetKoc16/Restoran-Uygulamas-"
     },
     {
@@ -71,12 +69,10 @@ const Portfolio = () => {
       description: "React ve Firebase kullanarak geliştirilen, görevlerinizi organize etmenizi sağlayan web tabanlı todo uygulaması.",
       images: todoImages,
       tags: ["React", "Firebase", "JavaScript"],
-      demoLink: "https://example.com",
       githubLink: "https://github.com/MehmetKoc16/todo_app"
     }
   ];
 
-  // Resim galerisi olan projeleri kontrol eden yardımcı fonksiyon
   const hasImageGallery = (projectId) => {
     return projectId === 2 || projectId === 3;
   };
@@ -89,7 +85,6 @@ const Portfolio = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {projects.map(project => (
             <div key={project.id} className="overflow-hidden flex flex-col bg-transparent rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 h-full transform hover:-translate-y-2">
-              {/* Görsel alanı */}
               <div className="relative bg-transparent rounded-t-xl overflow-hidden" style={{ height: "220px" }}>
                 {hasImageGallery(project.id) ? (
                   <>
@@ -98,7 +93,6 @@ const Portfolio = () => {
                       alt={`${project.title} - Görsel ${activeImageIndex[project.id] + 1}`} 
                       className="w-full h-full object-contain" 
                     />
-                    {/* Resim değiştirme okları - sadece birden fazla resim varsa göster */}
                     {project.images.length > 1 && (
                       <>
                         <button 
@@ -115,7 +109,6 @@ const Portfolio = () => {
                         >
                           <i className="fas fa-chevron-right"></i>
                         </button>
-                        {/* Resim göstergeleri */}
                         <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2">
                           {project.images.map((_, index) => (
                             <span 
@@ -136,20 +129,17 @@ const Portfolio = () => {
                 )}
               </div>
               
-              {/* İçerik alanı */}
               <div className="bg-black p-6 flex-grow flex flex-col rounded-b-xl">
                 <h3 className="text-2xl font-bold mb-3 text-center">{project.title}</h3>
                 <p className="mb-5 text-gray-300 text-sm">{project.description}</p>
                 
-                {/* Etiketler */}
                 <div className="flex flex-wrap justify-center gap-2 mb-5">
                   {project.tags.map((tag, index) => (
                     <span key={index} className="px-4 py-1.5 bg-dark-darker text-white rounded-full text-xs">{tag}</span>
                   ))}
                 </div>
                 
-                {/* Butonlar */}
-                <div className="flex justify-center gap-6 mt-auto">
+                <div className="flex justify-center mt-auto">
                   <a 
                     href={project.githubLink} 
                     target="_blank" 
@@ -158,15 +148,6 @@ const Portfolio = () => {
                     aria-label="GitHub"
                   >
                     <i className="fab fa-github text-lg"></i>
-                  </a>
-                  <a 
-                    href={project.demoLink} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="w-12 h-12 flex items-center justify-center rounded-full bg-dark-darker hover:bg-gray-700 transition-colors"
-                    aria-label="Demo"
-                  >
-                    <i className="fas fa-external-link-alt text-lg"></i>
                   </a>
                 </div>
               </div>
@@ -193,6 +174,9 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+
+
+
 
 
 

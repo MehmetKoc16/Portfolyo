@@ -5,7 +5,7 @@ const StarryBackground = () => {
   
   useEffect(() => {
     const generateStars = () => {
-      const starCount = 150; // Yıldız sayısı
+      const starCount = 150;
       const newStars = [];
       
       for (let i = 0; i < starCount; i++) {
