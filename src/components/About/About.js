@@ -18,7 +18,7 @@ const About = () => {
               işlevsel ve estetik arayüzler oluşturmayı seviyorum.
             </p>
             <p className="text-gray-300 mb-6">
-              Şu anda kendi portfolyo sayfamı geliştiriyor ve "Dragon's" adını verdiğim oyun projesi üzerinde çalışıyorum. Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
+              Kod yazmak, sadece bir meslek değil, aynı zamanda yaratıcılığımı ifade etmenin en keyifli yolu. Boş zamanlarımda webtoon okumayı, gezmeyi ve spor yapmayı seviyorum. Sürekli yeni şeyler öğrenmeyi ve sınırlarımı zorlamayı hedefliyorum.
               Yazılımın sunduğu sonsuz olanaklarla daha fazlasını üretmeye ve kendimi geliştirmeye devam ediyorum.
             </p>
           </div>
